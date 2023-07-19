@@ -3,10 +3,10 @@ import fetch from "node-fetch";
 
 const app = express();
 
-app.set("views", "./views");
-app.set("view engine", "pug");
+app.set("views", "./views"); //use the views folder
+app.set("view engine", "pug"); //using pug for the view engine
 
-app.use(express.static("public"));
+app.use(express.static("public")); //look at the static files in the public folder
 
 const redirect_uri = "http://localhost:3000/callback";
 const client_id = "";
@@ -90,8 +90,9 @@ app.get("/recommendations", async (req, res) => {
   res.render("recommendation", { tracks: data.tracks });
 });
 
+//The port number is 3000
 let listener = app.listen(3000, function () {
   console.log(
-    "Your app is listening on http://localhost:" + listener.address().port
+    "Your app is listening on http://localhost:" + listener.address().port //message that is displayed
   );
 });
