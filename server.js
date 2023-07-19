@@ -9,8 +9,8 @@ app.set("view engine", "pug"); //using pug for the view engine
 app.use(express.static("public")); //look at the static files in the public folder
 
 const redirect_uri = "http://localhost:3000/callback";
-const client_id = "";
-const client_secret = "";
+const client_id = "23b732ee533240e5b8ebb81a6a445f7e";
+const client_secret = "452d990a8dc546b094ec83caa12bad8c";
 
 global.access_token;
 
@@ -26,13 +26,14 @@ app.get("/authorize", (req, res) => {
     redirect_uri: redirect_uri,
   });
 
-  res.redirect(
+  res.redirect( //fetch redirect link
     "https://accounts.spotify.com/authorize?" + auth_query_parameters.toString()
   );
 });
 
 app.get("/callback", async (req, res) => {
   const code = req.query.code;
+  //console.log(code) --> check to see if it shows up in terminal
 
   var body = new URLSearchParams({
     code: code,
@@ -46,19 +47,19 @@ app.get("/callback", async (req, res) => {
     headers: {
       "Content-type": "application/x-www-form-urlencoded",
       Authorization:
-        "Basic " +
-        Buffer.from(client_id + ":" + client_secret).toString("base64"),
+        "Basic " + Buffer.from(client_id + ":" + client_secret).toString("base64"),
     },
   });
 
   const data = await response.json();
+  //console.log(data); --> checked the token information
   global.access_token = data.access_token;
 
   res.redirect("/dashboard");
 });
 
 async function getData(endpoint) {
-  const response = await fetch("https://api.spotify.com/v1" + endpoint, {
+  const response = await fetch("https://api.spotify.com/v1" + endpoint, { //get the data about the user using the endpoint
     method: "get",
     headers: {
       Authorization: "Bearer " + global.access_token,
@@ -66,9 +67,11 @@ async function getData(endpoint) {
   });
 
   const data = await response.json();
+  //console.log(data); --> print out the data about the user in the terminal
   return data;
 }
 
+//Left off here
 app.get("/dashboard", async (req, res) => {
   const userInfo = await getData("/me");
   const tracks = await getData("/me/tracks?limit=10");
