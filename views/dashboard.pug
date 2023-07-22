@@ -1,9 +1,11 @@
 extends layout.pug
     
 block content
-    h1 Welcome! #{user.id} ✨
+    h1 Welcome #{user.display_name}! 
+    h2 Here are your 10 most recently liked songs
+    h2 Click on a song link to see song recommendations
     img(src=user.images[0].url, class='circular_image')
-
+    
     table 
       each t in tracks
         tr 

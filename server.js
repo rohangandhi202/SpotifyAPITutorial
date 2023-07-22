@@ -71,14 +71,16 @@ async function getData(endpoint) {
   return data;
 }
 
-//Left off here
+//getting data from the endpoint and displaying it on webpage
 app.get("/dashboard", async (req, res) => {
-  const userInfo = await getData("/me");
-  const tracks = await getData("/me/tracks?limit=10");
+  const userInfo = await getData("/me"); //endpoint call #1
+  const tracks = await getData("/me/tracks?limit=10"); //endpoint call #2 to get User's saved tracks
 
+  //res.render("dashboard", { user: userInfo }); //test out endpoint
   res.render("dashboard", { user: userInfo, tracks: tracks.items });
 });
 
+//page to see recommendations based on the song link clicked
 app.get("/recommendations", async (req, res) => {
   const artist_id = req.query.artist;
   const track_id = req.query.track;
