@@ -5,7 +5,7 @@
     - If the user clicks on the hyperlinked song, it will redirect them to another page that gives them song recommendations based on the song they selected
     - This API project gives users song recommendations based on their liked songs
 
-How to run:
+### How to run:
     - Clone this project to your IDE
     - In the terminal insert the command "npm install"
     - Once npm is installed insert the command "npm run start" and the application will run in your local host
